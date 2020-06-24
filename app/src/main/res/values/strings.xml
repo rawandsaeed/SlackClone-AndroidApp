@@ -19,4 +19,8 @@
     <string name="please_log_in">Please Log In</string>
     <string name="openNavDrawer">Open navigation drawer</string>
     <string name="closeNavDrawer">Close navigation drawer</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="login_createuser_btn">Sign up</string>
+    <string name="email">email</string>
+    <string name="password">password</string>
 </resources>
