@@ -22,5 +22,10 @@
     <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string name="login_createuser_btn">Sign up</string>
     <string name="email">email</string>
+    <string name="user_name">user name</string>
+    <string name="email_address">email address</string>
     <string name="password">password</string>
+    <string name="tap_to_generate_user_avatar">Tap to generate user avatar</string>
+    <string name="generate_background_color">Generate Background Color</string>
+    <string name="create_user">Create User</string>
 </resources>
