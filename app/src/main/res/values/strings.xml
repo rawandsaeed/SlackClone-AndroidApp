@@ -14,4 +14,9 @@
     <string name="home_second">Home Second</string>
     <string name="namesurname">NameSurname</string>
     <string name="name_email_com">name@email.com</string>
+    <string name="log_in">Log in</string>
+    <string name="addclickbutton">AddClickButton</string>
+    <string name="please_log_in">Please Log In</string>
+    <string name="openNavDrawer">Open navigation drawer</string>
+    <string name="closeNavDrawer">Close navigation drawer</string>
 </resources>
