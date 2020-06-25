@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.example.slackclone.R
+import com.example.slackclone.services.AuthService
 import kotlinx.android.synthetic.main.activity_create_user.*
 import java.util.*
 
@@ -47,5 +48,11 @@ class CreateUserActivity : AppCompatActivity() {
 
         avatarColor = "[$savedR, $savedG, $savedB]"
     }
-    fun createUserClicked(view: View) {}
+    fun createUserClicked(view: View) {
+        AuthService.registerUser(this, "j@j.com", "123456") {complete ->
+            if (complete) {
+
+            }
+        }
+    }
 }
