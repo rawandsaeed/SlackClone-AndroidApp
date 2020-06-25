@@ -49,9 +49,18 @@ class CreateUserActivity : AppCompatActivity() {
         avatarColor = "[$savedR, $savedG, $savedB]"
     }
     fun createUserClicked(view: View) {
-        AuthService.registerUser(this, "j@j.com", "123456") {complete ->
-            if (complete) {
+        val userName = createUserNameText.text.toString()
+        val userEmail = createEmailText.text.toString()
+        val userPassword = createPasswordText.text.toString()
 
+        AuthService.registerUser(this, userEmail, userPassword) {registerSuccess ->
+            if (registerSuccess) {
+                AuthService.loginUser(this, userEmail, userPassword) {loginSuccess ->
+                    if (loginSuccess) {
+                        println(AuthService.authToken)
+                        println(AuthService.userEmail)
+                    }
+                }
             }
         }
     }
