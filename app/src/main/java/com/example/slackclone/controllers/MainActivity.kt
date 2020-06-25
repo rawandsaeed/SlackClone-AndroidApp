@@ -1,15 +1,13 @@
-package com.example.slackclone
+package com.example.slackclone.controllers
 
 import android.content.Intent
 import android.os.Bundle
 
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
-import com.google.android.material.navigation.NavigationView
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import com.example.slackclone.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
@@ -21,7 +19,10 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val toggle = ActionBarDrawerToggle(
-            this, drawer_layout, toolbar, R.string.openNavDrawer, R.string.closeNavDrawer )
+            this, drawer_layout, toolbar,
+            R.string.openNavDrawer,
+            R.string.closeNavDrawer
+        )
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
