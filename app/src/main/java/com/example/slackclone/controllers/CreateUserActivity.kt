@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import com.example.slackclone.R
 import com.example.slackclone.services.AuthService
+import com.example.slackclone.services.UserDataService
 import kotlinx.android.synthetic.main.activity_create_user.*
 import java.util.*
 
@@ -57,8 +58,14 @@ class CreateUserActivity : AppCompatActivity() {
             if (registerSuccess) {
                 AuthService.loginUser(this, userEmail, userPassword) {loginSuccess ->
                     if (loginSuccess) {
-                        println(AuthService.authToken)
-                        println(AuthService.userEmail)
+                        AuthService.createUser(this, userName, userEmail, userAvatar, avatarColor) { createSuccess ->
+                            if (createSuccess) {
+                                println(UserDataService.avatarColor)
+                                println(UserDataService.avatarName)
+                                println(UserDataService.name)
+                                finish()
+                            }
+                        }
                     }
                 }
             }
