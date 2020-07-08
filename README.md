@@ -17,8 +17,9 @@ The application was built using the following technologies:
 4. XML layout 
 5. Git version control & Github
 
-| ![](https://github.com/rawandsaeed/SlackClone-AndroidApp/blob/master/Arts/SlackClone-LogIn.jpg?raw=true) | ![](https://github.com/rawandsaeed/SlackClone-AndroidApp/blob/master/Arts/SlackClone-SignUp.jpg?raw=true) | ![](https://github.com/rawandsaeed/SlackClone-AndroidApp/blob/master/Arts/SackClone-Main.jpg?raw=true) | ![](https://github.com/rawandsaeed/SlackClone-AndroidApp/blob/master/Arts/SlackClone-AddChannel.jpg?raw=true) | ![](https://github.com/rawandsaeed/SlackClone-AndroidApp/blob/master/Arts/SlackClone-Messages.jpg?raw=true) |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-|                                                              |                                                              |                                                              |                                                              |                                                              |
+| ![](https://github.com/rawandsaeed/SlackClone-AndroidApp/blob/master/Arts/SlackClone-LogIn.jpg?raw=true) | ![](https://github.com/rawandsaeed/SlackClone-AndroidApp/blob/master/Arts/SlackClone-SignUp.jpg?raw=true) | ![](https://github.com/rawandsaeed/SlackClone-AndroidApp/blob/master/Arts/SackClone-Main.jpg?raw=true) |      |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ---- |
+|                                                              |                                                              |                                                              |      |
+| ![](https://github.com/rawandsaeed/SlackClone-AndroidApp/blob/master/Arts/SlackClone-AddChannel.jpg?raw=true) | ![](https://github.com/rawandsaeed/SlackClone-AndroidApp/blob/master/Arts/SlackClone-Messages.jpg?raw=true) |                                                              |      |
 
 
