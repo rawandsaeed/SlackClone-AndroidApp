@@ -1,14 +1,15 @@
 package com.example.slackclone.services
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.slackclone.utilities.URL_CREATE_USER
-import com.example.slackclone.utilities.URL_LOGIN
-import com.example.slackclone.utilities.URL_REGISTER
+import com.example.slackclone.controllers.App
+import com.example.slackclone.utilities.*
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -16,12 +17,8 @@ import org.json.JSONObject
 Created by rawandsaeed on 6/25/20
  */
 object AuthService {
-
-    var isLoggedIn = false
-    var userEmail = ""
-    var authToken = ""
-
-    fun registerUser(context: Context, email: String, password: String, complete: (Boolean) -> Unit) {
+    
+    fun registerUser(email: String, password: String, complete: (Boolean) -> Unit) {
         val jsonBody = JSONObject()
         jsonBody.put("email", email)
         jsonBody.put("password", password)
@@ -43,10 +40,10 @@ object AuthService {
                 return requestBody.toByteArray()
             }
         }
-        Volley.newRequestQueue(context).add(registerRequest)
+        App.prefs.requestQueue.add(registerRequest)
     }
 
-    fun loginUser(context: Context, email: String, password: String, complete:(Boolean) -> Unit) {
+    fun loginUser(email: String, password: String, complete:(Boolean) -> Unit) {
         val jsonBody = JSONObject()
         jsonBody.put("email", email)
         jsonBody.put("password", password)
@@ -54,16 +51,16 @@ object AuthService {
 
         val loginRequest = object : JsonObjectRequest(Method.POST, URL_LOGIN, null, Response.Listener {response ->
             try {
-                userEmail = response.getString("user")
-                authToken = response.getString("token")
-                isLoggedIn = true
+                App.prefs.userEmail = response.getString("user")
+                App.prefs.authToken = response.getString("token")
+                App.prefs.isLoggedIn = true
                 complete(true)
             } catch (e: JSONException) {
                 Log.d("JSON", "EXC:" + e.localizedMessage)
             }
 
         }, Response.ErrorListener {error ->
-            Log.d("ERROR", "Could not register user: $error")
+            Log.d("ERROR", "Could not login user: $error")
             complete(false)
         }) {
             override fun getBodyContentType(): String {
@@ -73,10 +70,10 @@ object AuthService {
                 return requestBody.toByteArray()
             }
         }
-        Volley.newRequestQueue(context).add(loginRequest)
+        App.prefs.requestQueue.add(loginRequest)
     }
 
-    fun createUser(context: Context, name: String, email: String, avatarName: String, avatarColor: String, complete: (Boolean) -> Unit) {
+    fun createUser(name: String, email: String, avatarName: String, avatarColor: String, complete: (Boolean) -> Unit) {
 
         val jsonBody = JSONObject()
         jsonBody.put("name", name)
@@ -86,7 +83,6 @@ object AuthService {
         val requestBody = jsonBody.toString()
 
         var createRequest = object : JsonObjectRequest(Method.POST, URL_CREATE_USER, null, Response.Listener { response ->
-
             try {
                 UserDataService.name = response.getString("name")
                 UserDataService.email = response.getString("email")
@@ -111,10 +107,43 @@ object AuthService {
             }
             override fun getHeaders(): MutableMap<String, String> {
                 var headers = HashMap<String, String>()
-                headers.put("Authorization", "Bearer $authToken")
+                headers.put("Authorization", "Bearer ${App.prefs.authToken}")
                 return headers
             }
         }
-        Volley.newRequestQueue(context).add(createRequest)
+        App.prefs.requestQueue.add(createRequest)
+    }
+
+    fun findUserByEmail(context: Context, complete: (Boolean) -> Unit) {
+        val findUserRequest = object : JsonObjectRequest(Method.GET, "$URL_GET_USER${App.prefs.userEmail}", null, Response.Listener {respone ->
+            try {
+                UserDataService.name = respone.getString("name")
+                UserDataService.email = respone.getString("email")
+                UserDataService.avatarName = respone.getString("avatarName")
+                UserDataService.avatarColor = respone.getString("avatarColor")
+                UserDataService.id = respone.getString("_id")
+
+                val userDataChange = Intent(BROADCAST_USER_DATA_CHANGE)
+                LocalBroadcastManager.getInstance(context).sendBroadcast(userDataChange)
+                complete(true)
+
+            } catch (e: JSONException) {
+                Log.d("JSON", "EXC: " + e.localizedMessage)
+            }
+        }, Response.ErrorListener {error ->
+            Log.d("ERROR", "Could not find user")
+            complete(false)
+        }) {
+
+            override fun getBodyContentType(): String {
+                return "application/json; charset=utf-8"
+            }
+            override fun getHeaders(): MutableMap<String, String> {
+                var headers = HashMap<String, String>()
+                headers.put("Authorization", "Bearer ${App.prefs.authToken}")
+                return headers
+            }
+        }
+        App.prefs.requestQueue.add(findUserRequest)
     }
 }

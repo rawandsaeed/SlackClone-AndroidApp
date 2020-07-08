@@ -10,12 +10,15 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:name=".controllers.App">
+
         <activity android:name=".controllers.CreateUserActivity"></activity>
         <activity android:name=".controllers.LoginActivity" />
         <activity
             android:name=".controllers.MainActivity"
             android:label="@string/app_name"
+            android:windowSoftInputMode="stateAlwaysHidden"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
